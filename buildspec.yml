@@ -3,18 +3,16 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Installing Docker
-      - apt-get update
-      - apt-get install -y docker.io
-      - echo Fetching the Node.js project from GitHub
-      - git clone https://github.com/AAhsanSiddiqui123/aws-codepip.git
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
-      - cd .\aws-codepip\
-      - docker build -t 383633643106.dkr.ecr.us-east-1.amazonaws.com/test1:latest .
+      - echo Building the Docker image...          
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker image to Amazon ECR
-      - docker push 383633643106.dkr.ecr.us-east-1.amazonaws.com/test/test1:latest
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
