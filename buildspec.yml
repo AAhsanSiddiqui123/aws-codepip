@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Installing Docker
+      - apt-get update
+      - apt-get install -y docker.io
+      - echo Fetching the Node.js project from GitHub
+      - git clone https://github.com/AAhsanSiddiqui123/aws-codepip.git
+  build:
+    commands:
+      - echo Build started on `date`
+      - cd .\aws-codepip\
+      - docker build -t 383633643106.dkr.ecr.us-east-1.amazonaws.com/test1:latest .
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image to Amazon ECR
+      - docker push 383633643106.dkr.ecr.us-east-1.amazonaws.com/test/test1:latest
