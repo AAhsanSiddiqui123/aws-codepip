@@ -10,12 +10,12 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t public.ecr.aws/m0a8g7b6/ecr-repo:latest .
-      - docker tag public.ecr.aws/m0a8g7b6/ecr-repo:latest 383633643106.dkr.ecr.us-east-1.amazonaws.com/public.ecr.aws/m0a8g7b6/ecr-repo:latest     
+      - docker build -t ecr-repo:latest .
+      - docker tag ecr-repo:latest 383633643106.dkr.ecr.us-east-1.amazonaws.com/ecr-repo:latest     
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 383633643106.dkr.ecr.us-east-1.amazonaws.com/public.ecr.aws/m0a8g7b6/ecr-repo:latest
+      - docker push 383633643106.dkr.ecr.us-east-1.amazonaws.com/ecr-repo:latest
 
