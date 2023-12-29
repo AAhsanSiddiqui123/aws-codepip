@@ -8,8 +8,8 @@ phases:
       - aws --version
       - AWS_DEFAULT_REGION=us-east-1 
       - AWS_ACCOUNT_ID=383633643106
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - REPOSITORY_URI=public.ecr.aws/m0a8g7b6/test
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 383633643106.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=383633643106.dkr.ecr.us-east-1.amazonaws.com/first-ecr
   build:
     commands:
       - echo Build started on `date`
@@ -19,5 +19,4 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:latest
