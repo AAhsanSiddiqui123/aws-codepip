@@ -7,7 +7,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - AWS_DEFAULT_REGION=us-east-1 
-      - WS_ACCOUNT_ID=383633643106
+      - AWS_ACCOUNT_ID=383633643106
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - REPOSITORY_URI=public.ecr.aws/m0a8g7b6/test
   build:
